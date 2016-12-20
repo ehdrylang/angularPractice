@@ -1,2 +1,0 @@
-# angularPractice
-pro angularjs
