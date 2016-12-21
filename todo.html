@@ -8,14 +8,17 @@
     <script src="angular.js"></script>
     <script>
         var model = {
-            user:"Adam",
-            items: [{action:"Buy Flowers",done:false},
-                {action:"Get Shoes",done:false},
-                {action:"Collect Tickets",done:true},
-                {action:"Call Joe",done:false}]
+            user:"Adam"
         };
         var todoApp = angular.module("todoApp",[]);
+        //angular모듈객체에 정의된 run메서드는 초기설정마칠때 한번만 실행할 함수를 인자로 받음
+        todoApp.run(function ($http) {
+            $http.get("todo.json").success(function (data) {
+                model.items = data;
+            });
+        });
 
+        //필터팩터리는 함수 리턴 해야하고 안에 items는 angularjs에서 제공
         todoApp.filter("checkedItems",function () {
            return function (items,showComplete) {
                var resultArr=[];
